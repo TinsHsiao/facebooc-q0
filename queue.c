@@ -4,6 +4,12 @@
 
 #include "queue.h"
 
+struct node {
+    int data ;
+    struct node *next ;
+};
+
+typedef struct node node ;
 /*
  * Create empty queue.
  * Return NULL if could not allocate space.
