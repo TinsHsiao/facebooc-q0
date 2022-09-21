@@ -4,20 +4,30 @@
 
 #include "queue.h"
 
-struct node {
-    int data ;
-    struct node *next ;
+struct node
+{
+    int data;
+    struct node *next;
 };
 
-typedef struct node node ;
+typedef struct node node;
+
+struct queue_t {
+    link_ele_t *head ;
+    link_ele_t *tail ;
+    int size
+};
+
+typedef struct queue_t queue_t ;
 /*
  * Create empty queue.
  * Return NULL if could not allocate space.
  */
 queue_t *q_new()
 {
-    
-    return NULL;
+    queue *q ;
+    q = NULL ;
+    return q;
 }
 
 /* Free all storage used by queue */
