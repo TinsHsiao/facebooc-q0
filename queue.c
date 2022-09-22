@@ -4,36 +4,55 @@
 
 #include "queue.h"
 
-struct node
-{
-    int data;
-    struct node *next;
-};
+typedef struct element {
+    /* Pointer to array holding string.
+     * This array needs to be explicitly allocated and freed
+     */
+    char *value;
+    struct element *next;
+} element_t;
 
-typedef struct node node;
-
-struct queue_t {
-    link_ele_t *head ;
-    link_ele_t *tail ;
-    int size
-};
-
-typedef struct queue_t queue_t ;
+typedef struct {
+    element_t *head; /* Linked list of elements */
+    element_t *tail;
+    size_t size;
+} queue_t;
 /*
  * Create empty queue.
  * Return NULL if could not allocate space.
  */
 queue_t *q_new()
 {
-    queue *q ;
-    q = NULL ;
-    return q;
+    queue_t *q = malloc(sizeof(queue_t)) ; 
+    if ( q != NULL ) 
+        q->head = NULL ;
+        q->tail = NULL ;
+        q->size = 0 ;
+        returm q ;
+    else return NULL ;
 }
 
 /* Free all storage used by queue */
 void q_free(queue_t *q)
 {
-
+    if ( q != NULL ) return ;
+    
+    element_t *cur = q->head ;
+    element_t *cur_next = NULL ;
+    
+    if ( !q ) {
+        free(0)
+        return ;
+    }
+    
+    while( cur != NULL ) {
+        cur_next = cur-> next ;
+        free(cur->value) ;
+        free(cur) ;
+        cur = cur_next ;
+    }
+    
+    free(q) ;
 }
 
 /*
@@ -46,7 +65,30 @@ void q_free(queue_t *q)
 
 bool q_insert_head(queue_t *q, char *s)
 {
+    element_t *new ;
+    new = malloc( sizeof( elemnet_t ) ) ;
+    if ( ! new ) return false ;
     
+    new->value = malloc( sizeof( char ) ) ;
+    if ( ! new->value ) {
+        free( new->value ) ;
+        return false ;
+    }
+    
+    strcpy( new->value, s ) ;
+    new->next = NULL ;
+    
+    if ( q->head = NULL ) {
+        q->head = new ;
+        q->tail = new ;
+    }
+    
+    else {
+        new->next = q->head ;
+        q->head = new ;
+    }
+    
+    q->size ++ ;
     return true;
 }
 
@@ -58,8 +100,32 @@ bool q_insert_head(queue_t *q, char *s)
  * The function must explicitly allocate space and copy the string into it.
  */
 bool q_insert_tail(queue_t *q, char *s)
-{
+{   
+    if( ! q ) return false ;
     
+    element_t *new ;
+    new = malloc( sizeof( element_t ) ) ;
+    if ( ! new ) return false ;
+    new->value = malloc( sizeof( char ) ) ;
+    if ( !new->value ) {
+        free( new ) ;
+        return false ;
+    }
+    
+    strcpy( new->value, s ) ;
+    new->next = NULL ;
+    
+    if ( q->tail ) {
+        q->head = new ;
+        q->tail = new ;
+    }
+    
+    else {
+        tail->next = new ;
+        tail = tail->next ;
+    }
+        
+    q->size ++ ;    
     return true;
 }
 
@@ -73,7 +139,10 @@ bool q_insert_tail(queue_t *q, char *s)
  */
 bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
 {
+    if ( !p ) return false ;
     
+    if ( q->head == q->tail ) {
+        strcpy ( sp, q-head
     return true;
 }
 
