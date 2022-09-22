@@ -161,7 +161,8 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
  */
 size_t q_size(queue_t *q)
 {
-    return -1;
+    if ( !q || !q->head ) return 0 ;
+    return q->size ;
 }
 
 /*
@@ -173,16 +174,47 @@ size_t q_size(queue_t *q)
  */
 void q_reverse(queue_t *q)
 {
-
+    if ( !q || !q->head ) return ;
+    
+    char *sp ;
+    size_t bufsize
+    queue_t *tmp = malloc(sizeof(queue_t)) ; 
+    while ( q_size != 0 ) {
+        q_remove_head( q, sp, bufsize ) ;
+        q_insert_head( tmp, sp ) ;
+    }
+    
+    q->head = tmp->head ;
+    q->tail = tmp->tail ;
+    q->size = tmp ->size ;
+    free( tmp->value ) ;
+    free( tmp ) ;
+    
 }
 
 /*
  * The function's sorting algorithm should be merge sort.
  */
+
+void Merge( element_t *L_start, element_t *L_end,
+           element_t *R_start, element_t *R_end, element_t *Output) {
+  vector<element_t> tmp;
+  element_t *L_walk = L_start, *R_walk = R_start;
+  while (L_walk != L_end || R_walk != R_end) {
+    if (L_walk != L_end && (R_walk == R_end || strcmp( L_walk->value, R_walk->value ) < 0  ) )  // (**)
+      tmp.push_back(*L_ptr++);
+    else
+      tmp.push_back(*R_ptr++);
+  }
+  // 再把合併好的資料抄回去。
+  for (const auto &data : tmp) *Output++ = data;
+}
+
 void merge_sort(element_t **head)
 {
-    if (!(*head) || !(*head)->next)
-        return;
+    
+    queue *reverse ;
+    
 
 }
 
