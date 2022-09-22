@@ -139,10 +139,19 @@ bool q_insert_tail(queue_t *q, char *s)
  */
 bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
 {
-    if ( !p ) return false ;
+    if ( !q || !sp || !q->head->value ) return false ;
     
-    if ( q->head == q->tail ) {
-        strcpy ( sp, q-head
+    element_t *tmp = q->head ;
+    q->head = tmp->next ;
+    strcpy( sp, tmp->value, bufsize = -1 ) ;
+    if ( q->head == NULL ) q->tail = NULL ;
+    q->size -- ;
+    
+    free( tmp->value ) ;
+    free( tmp ) ;
+    
+    
+    
     return true;
 }
 
