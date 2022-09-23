@@ -196,6 +196,67 @@ void q_reverse(queue_t *q)
  * The function's sorting algorithm should be merge sort.
  */
 
+
+queue_t* sortList(queue_t* head) {
+    //If List Contain a Single or 0 Node
+    if(head == NULL || head ->next == NULL)
+        return head;
+        
+        
+    queue_t *temp = NULL;
+    queue_t *slow = head;
+    queue_t *fast = head;
+        
+    // 2 pointer appraoach / turtle-hare Algorithm (Finding the middle element)
+    while(fast !=  NULL && fast -> next != NULL) {
+        temp = slow;
+        slow = slow->next;          //slow increment by 1
+        fast = fast ->next ->next;  //fast incremented by 2   
+    }   
+    
+    temp -> next = NULL;            //end of first left half
+        
+    queue_t* l1 = sortList(head);    //left half recursive call
+    queue_t* l2 = sortList(slow);    //right half recursive call
+        
+    return mergelist(l1, l2);         //mergelist Function call
+            
+}
+    
+    //MergeSort Function O(n*logn)
+queue_t* mergelist(ListNode *l1, ListNode *l2) {
+    queue_t *ptr = malloc(sizeof(queue_t)) ;
+    queue_t *curr = ptr;
+        
+    while(l1 != NULL && l2 != NULL) {
+        if(l1->val <= l2->val) {
+            curr -> next = l1;
+            l1 = l1 -> next;
+        }
+        
+        else {
+            curr -> next = l2;
+            l2 = l2 -> next;
+        }
+        
+        curr = curr ->next;
+     }
+        
+     //for unqual length linked list
+        
+    if(l1 != NULL) {
+        curr -> next = l1;
+        l1 = l1->next;
+    }
+        
+    if(l2 != NULL) {
+        curr -> next = l2;
+        l2 = l2 ->next;
+    }
+        
+    return ptr->next;
+}
+/*
 void Merge( element_t *L_start, element_t *L_end,
            element_t *R_start, element_t *R_end, element_t *Output) {
   vector<element_t> tmp;
@@ -216,7 +277,7 @@ void merge_sort(element_t **head)
     queue *reverse ;
     
 
-}
+}*/
 
 /*
  * Sort elements of queue in ascending order
